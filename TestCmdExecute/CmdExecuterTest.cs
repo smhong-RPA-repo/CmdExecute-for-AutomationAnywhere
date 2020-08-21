@@ -9,14 +9,18 @@ namespace TestCmdExecute
     {
         public CmdLineBuilder CmdLineBuilder;
         private string Dir;
+        private string BatchDir;
+        private string BatchFileName;
         private string Filename;
         private string Parameter;
         [TestInitialize]
         public void Precondition_init()
         {
             Dir = "C:\\buildbot\\referenceData";
+            
             Filename = "InsertBatch.bat";
-
+            BatchDir = "C:\\buildbot\\batch";
+            BatchFileName = "ExportVehicleUsageReport.bat";
             Parameter = "1361.12, 1163.56,240";
             CmdLineBuilder = new CmdLineBuilder(Dir, Filename, Parameter);
         }
@@ -38,6 +42,13 @@ namespace TestCmdExecute
         {
             CmdExcuter cmdExcuter = new CmdExcuter();
             cmdExcuter.Execute(Dir, Filename, Parameter);
+        }
+
+        [TestMethod]
+        public void CmdNonParamExecuteTest()
+        {
+            CmdExcuter cmdExcuter = new CmdExcuter();
+            cmdExcuter.Execute(BatchDir, BatchFileName);
         }
 
         [TestCleanup]
